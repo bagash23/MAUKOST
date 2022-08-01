@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1041397196157",
+    "project_id": "maukost-63eed",
+    "storage_bucket": "maukost-63eed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041397196157:android:af60df3437a2a922fbd814",
+        "android_client_info": {
+          "package_name": "com.free"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041397196157-m81tl2v3rfv8jaid5nd4sejfgvk8dvge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7DqYxxYttBzHNVw6aIneYrE4ce0LpidQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041397196157-m81tl2v3rfv8jaid5nd4sejfgvk8dvge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
