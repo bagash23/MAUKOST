@@ -38,7 +38,8 @@ const All = () => {
 
     return (
         <View style = {{
-            flex: 1,            
+            flex: 1,
+            backgroundColor: "#fff"
         }} >
             {loading ? (
                 <ScrollView showsVerticalScrollIndicator = {false} style = {{
@@ -102,6 +103,7 @@ const All = () => {
                                 marginBottom: Dimensions.get('window').width * 0.02,
                                 flexDirection: "row",
                                 backgroundColor: "#fff",
+                                alignItems: 'center'
                             }} onPress = {() => navigation.navigate("TempatDetail", {item})} >
                                 <View>
                                     <Image source={{uri: item.thumbnileImage}} style = {{
@@ -150,7 +152,7 @@ const All = () => {
                                         <Text style = {{
                                             fontSize: Dimensions.get('window').width * 0.03,
                                             color: "#000",
-                                            paddingTop: Dimensions.get('window').height * 0.01,
+                                            // paddingTop: Dimensions.get('window').height * 0.01,
                                             fontFamily: fonts.primary[400]
                                         }} >{item.kota}</Text>
                                     </View>
@@ -158,7 +160,7 @@ const All = () => {
                                     <View style = {{
                                         flexDirection: 'row',
                                         alignItems: 'center',
-                                        marginVertical: Dimensions.get('window').height * 0.02,
+                                        // marginVertical: Dimensions.get('window').height * 0.02,
                                         marginHorizontal: Dimensions.get('window').width * 0.02,   
                                     }} >
                                         <Text style = {{
@@ -207,6 +209,7 @@ const Open = () => {
     return (
         <View style = {{
             flex: 1,            
+            backgroundColor: "#fff",
         }} >
             {loading ? (
                 <ScrollView showsVerticalScrollIndicator = {false} style = {{
@@ -269,6 +272,7 @@ const Open = () => {
                             marginBottom: Dimensions.get('window').width * 0.02,
                             flexDirection: "row",
                             backgroundColor: "#fff",
+                            alignItems: 'center',
                         }} onPress = {() => navigation.navigate("TempatDetail", {item})} >
                             <View>
                                 <Image source={{uri: item.thumbnileImage}} style = {{
@@ -317,7 +321,7 @@ const Open = () => {
                                     <Text style = {{
                                         fontSize: Dimensions.get('window').width * 0.03,
                                         color: "#000",
-                                        paddingTop: Dimensions.get('window').height * 0.01,
+                                        // paddingTop: Dimensions.get('window').height * 0.01,
                                         fontFamily: fonts.primary[400]
                                     }} >{item.kota}</Text>
                                 </View>
@@ -325,7 +329,7 @@ const Open = () => {
                                 <View style = {{
                                     flexDirection: 'row',
                                     alignItems: 'center',
-                                    marginVertical: Dimensions.get('window').height * 0.02,
+                                    // marginVertical: Dimensions.get('window').height * 0.02,
                                     marginHorizontal: Dimensions.get('window').width * 0.02,   
                                 }} >
                                     <Text style = {{

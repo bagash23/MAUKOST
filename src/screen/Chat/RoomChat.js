@@ -1,35 +1,35 @@
 // @refresh result
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useRoute } from '@react-navigation/native';
 import { auth, db } from '../../config';
-import { v4 as uuidv4 } from 'uuid'
 import 'react-native-get-random-values';
 import { addDoc, collection, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { Actions, Bubble, GiftedChat } from 'react-native-gifted-chat';
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { pickImage, uploadImage } from '../../utils/imagePicker';
+import { v4 as uuidv4 } from 'uuid'
+import { fonts } from '../../utils/Fonts';
 
-const RoomChat = () => {
-    const [roomsHash, setRoomHash] = useState("");
-    const [messages, setMessages] = useState([]);
+const randomId = uuidv4();
+
+const RoomChat = () => {    
+    const [roomHash, setRoomHash] = useState("");
+    const [messages, setMessages] = useState([]);    
 
     const route = useRoute();
     const room = route.params.room
-    console.log(room), "WKWKWK";
-    const idKontrakan = room.id;
-    console.log(idKontrakan), "WKWKWK";
-    const { currentUser } = auth;
-    const randomId = uuidv4();
+    console.log(room, "WKWKWK");
+    const image = route.params.iamge;
+    console.log(image, "WKWKWK");
+    const { currentUser } = auth;    
     const userB  = route.params.user;    
     console.log(userB, "wlwlwlwl");
 
 
-    const senderUser = currentUser.photoURL ? {name: currentUser.displayName, _Id: currentUser.uid, avatar: currentUser.photoURL} : {name: currentUser.displayName, _id: currentUser.uid};
-    const roomId = room ? idKontrakan : randomId;
+    const senderUser = currentUser.photoURL ? {name: currentUser.displayName, _id: currentUser.uid, avatar: currentUser.photoURL} : {name: currentUser.displayName, _id: currentUser.uid} ;
+    const roomId = room ? room.id : randomId;
 
     const roomRef = doc(db, "rooms", roomId);
-    const roomMessageRef = collection(db, "Rooms", roomId, "messages");
+    const roomMessageRef = collection(db, "rooms", roomId, "messages");
 
     useEffect(() => {
         (async () => {
@@ -39,27 +39,27 @@ const RoomChat = () => {
                     email: currentUser.email,
                 }
                 if (currentUser.photoURL) {
-                    currentUserData.photoURL = currentUser.photoURL
+                    currentUser.photoURL = currentUser.photoURL;
                 }
                 const userBData = {
-                    displayName: userB.displayName || "",
-                    email: userB.email
+                    displayName: userB.displayName,
+                    email: userB.email,
                 }
                 if (userB.photoURL) {
-                    userBData.photoURL = userB.photoURL
+                    userB.photoURL = userB.photoURL;
                 }
                 const roomData = {
                     participants: [currentUserData, userBData],
                     participantsArray: [currentUser.email, userB.email],
                 }
                 try {
-                    await setDoc(roomRef, roomData)
+                    await setDoc(roomRef, roomData);
                 } catch (error) {
                     console.log(error);
                 }
+                const emailHash = `${currentUser.email} : ${userB.email}`;
+                setRoomHash(emailHash);
             }
-            const emailHash = `${currentUser.email} : ${userB.email}`;
-            setRoomHash(emailHash);
         })()
     },[])
 
@@ -80,13 +80,20 @@ const RoomChat = () => {
 
     async function onSend(messages = []) {
         const writes = messages.map(m => addDoc(roomMessageRef, m));
-        const lastMessage = messages[messages.length - 1];
-        writes.push(updateDoc(roomRef, {lastMessage}));
+        const lastMessage = messages[messages.length - 1];    
+
+        writes.push(updateDoc(roomRef, {lastMessage} ));
         await Promise.all(writes);
     };
 
+
     return (
         <View style = {styles.container} >
+            <View style = {styles.header} >  
+                <Text style = {styles.txtHeader} >
+                    {userB.displayName}
+                </Text>                
+            </View>
             <GiftedChat
                 onSend={onSend}
                 messages={messages}
@@ -94,9 +101,9 @@ const RoomChat = () => {
                 renderAvatar={null}
                 timeTextStyle={{right: {color: "#fff"}}}
                 renderBubble={(props) => (
-                    <Bubble {...props}  textStyle={{right: {color: "#fff"}}} wrapperStyle = {{left: {backgroundColor: "#000"}, right: {backgroundColor: "#d32521"}}} />
-                )}
-            />
+                    <Bubble {...props}  textStyle={{right: {color: "#fff"}}} wrapperStyle = {{left: {backgroundColor: "#fff"}, right: {backgroundColor: "#d32521"}}} />
+                )} 
+            />            
         </View>
     )
 }
@@ -107,5 +114,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff"
-    }
+    }, 
+    header: {
+        paddingVertical: Dimensions.get("window").width * 0.02,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    txtHeader: {
+        fontFamily: fonts.primary[600],
+        textAlign: 'center',
+        color: "#000"
+    },
 })

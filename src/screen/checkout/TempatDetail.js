@@ -16,15 +16,24 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import call from 'react-native-phone-call'
 import { v4 as uuidv4 } from 'uuid'
 import { UseForm } from '../../utils';
+import GlobalContext from '../../Context/Context';
 
 const TempatDetail = () => {
     const route = useRoute();
-    const DetilKontrakan = route.params.item;    
+    const DetilKontrakan = route.params.item;   
+
     const navigation = useNavigation()
     const randomImage = DetilKontrakan.detilImage
     const idKontrakan = DetilKontrakan.id
     const [form, setForm] = useState('')
     const { currentUser } = auth;
+    const [selectedImageView, setSelectedImageView] = useState(false)
+    const [selectedImageView2, setSelectedImageView2] = useState(false)
+    const [selectedImageView3, setSelectedImageView3] = useState(false)
+
+    const [show, setShow] = useState(false)
+    const [show2, setShow2] = useState(false)
+    const [show3, setShow3] = useState(false)
 
     const [listKomentar, setListKomentar] = useState([]);    
     const queryKomentar = query(collection(db, "Komentar"), where("kontrakanId", "==", idKontrakan))
@@ -52,6 +61,7 @@ const TempatDetail = () => {
         return () => unsubscribe()
     },[])
 
+    const { unfilteredRooms } = useContext(GlobalContext)
 
     // const lokalContext = createContext({
     //     rooms: [],
@@ -114,34 +124,17 @@ const TempatDetail = () => {
     const [loading, setLoading] = useState(false);
     if (loading) {
         return (
-            <Modal
-                transparent={true}
-                animationType={'none'}
-                visible={loading}
-                style={{ zIndex: 1100 }}
-                onRequestClose={() => { }}
-            >
-                <View style={{
-                    flex: 1,
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                    backgroundColor: '#rgba(0, 0, 0, 0.5)',
-                    zIndex: 1000
-                }}>
-                    <View style={{
-                        backgroundColor: '#FFFFFF',
-                        height: 100,
-                        width: 100,
-                        borderRadius: 10,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-around'
-                    }}>
-                        <ActivityIndicator animating={loading} color="black" />
-                    </View>
-                </View>
-            </Modal>
+            <View style={{
+                flex: 1,
+                alignItems: 'center',        
+                justifyContent: 'center',
+                backgroundColor: '#fff',              
+            }}>
+                <Image source={require("../../assets/loading.gif")} style = {{
+                    width: 50,
+                    height: 50
+                }} />
+            </View>
         )
     }
 
@@ -183,6 +176,8 @@ const TempatDetail = () => {
         }
         call(args).catch(console.error)
     }
+
+    
 
     if (currentUser.uid === DetilKontrakan.idUsers) {
         return (
@@ -299,52 +294,52 @@ const TempatDetail = () => {
                         marginHorizontal: Dimensions.get("window").width * 0.05,
                         
                     }} >
-                        {/* <TouchableOpacity
+                        <TouchableOpacity
                             onPress={() => {
                                 setShow(true)
-                                setSelectedImageView(DetilKontrakan.detilImage)
+                                setSelectedImageView(randomImage.image1)
                             }}
-                        > */}
+                        >
                             <Image source={{uri: randomImage.image1}} style = {{
                                 width: Dimensions.get("window").width * 0.30,
                                 height: Dimensions.get("window").width * 0.30,
                                 borderRadius: Dimensions.get("window").width * 0.01,
                             }} />
-                            {/* {(selectedImageView) ? (
-                                <ImageView imageIndex={0} visible={show} onRequestClose={() => setShow(false)} images = {selectedImageView} />
+                            {(selectedImageView) ? (
+                                <ImageView imageIndex={0} visible={show} onRequestClose={() => setShow(false)} images = {[{uri: selectedImageView}]} />
                             ):null}
-                        </TouchableOpacity> */}
-                        {/* <TouchableOpacity
+                        </TouchableOpacity>
+                        <TouchableOpacity
                             onPress={() => {
                                 setShow2(true)
-                                setSelectedImageView2(selectedImageView)
+                                setSelectedImageView2(randomImage.image2)
                             }}
-                        > */}
+                        >
                             <Image source={{uri: randomImage.image2}} style = {{
                                 width: Dimensions.get("window").width * 0.30,
                                 height: Dimensions.get("window").width * 0.30,
                                 borderRadius: Dimensions.get("window").width * 0.01,
                                 marginHorizontal: Dimensions.get("window").width * 0.01,
                             }}/>
-                            {/* {(selectedImageView2) ? (
-                                <ImageView imageIndex={0} visible={show2} onRequestClose={() => setShow2(false)} images = {selectedImageView2} />
+                            {(selectedImageView2) ? (
+                                <ImageView imageIndex={0} visible={show2} onRequestClose={() => setShow2(false)} images = {[{uri: selectedImageView2}]} />
                             ):null}
-                        </TouchableOpacity> */}
-                        {/* <TouchableOpacity
+                        </TouchableOpacity>
+                        <TouchableOpacity
                             onPress={() => {
                                 setShow3(true)
-                                setSelectedImageView3(selectedImageView3)
+                                setSelectedImageView3(randomImage.image3)
                             }}
-                        > */}
+                        >
                             <Image source={{uri: randomImage.image3}} style = {{
                                 width: Dimensions.get("window").width * 0.30,
                                 height: Dimensions.get("window").width * 0.30,
                                 borderRadius: Dimensions.get("window").width * 0.01,
                             }}/>
-                            {/* {(selectedImageView3) ? (
-                                <ImageView imageIndex={0} visible={show3} onRequestClose={() => setShow3(false)} images = {selectedImageView3} />
+                            {(selectedImageView3) ? (
+                                <ImageView imageIndex={0} visible={show3} onRequestClose={() => setShow3(false)} images = {[{uri: selectedImageView3}]} />
                             ):null}
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
                     </View>
                     <View style = {styles.contentOwner} >
                         <View style = {{
@@ -573,52 +568,52 @@ const TempatDetail = () => {
                         marginHorizontal: Dimensions.get("window").width * 0.05,
                         
                     }} >
-                        {/* <TouchableOpacity
+                        <TouchableOpacity
                             onPress={() => {
                                 setShow(true)
-                                setSelectedImageView(DetilKontrakan.detilImage)
+                                setSelectedImageView(randomImage.image1)
                             }}
-                        > */}
+                        >
                             <Image source={{uri: randomImage.image1}} style = {{
                                 width: Dimensions.get("window").width * 0.30,
                                 height: Dimensions.get("window").width * 0.30,
                                 borderRadius: Dimensions.get("window").width * 0.01,
                             }} />
-                            {/* {(selectedImageView) ? (
-                                <ImageView imageIndex={0} visible={show} onRequestClose={() => setShow(false)} images = {selectedImageView} />
+                            {(selectedImageView) ? (
+                                <ImageView imageIndex={0} visible={show} onRequestClose={() => setShow(false)} images = {[{uri: selectedImageView}]} />
                             ):null}
-                        </TouchableOpacity> */}
-                        {/* <TouchableOpacity
+                        </TouchableOpacity>
+                        <TouchableOpacity
                             onPress={() => {
                                 setShow2(true)
-                                setSelectedImageView2(selectedImageView)
+                                setSelectedImageView2(randomImage.image2)
                             }}
-                        > */}
+                        >
                             <Image source={{uri: randomImage.image2}} style = {{
                                 width: Dimensions.get("window").width * 0.30,
                                 height: Dimensions.get("window").width * 0.30,
                                 borderRadius: Dimensions.get("window").width * 0.01,
                                 marginHorizontal: Dimensions.get("window").width * 0.01,
                             }}/>
-                            {/* {(selectedImageView2) ? (
-                                <ImageView imageIndex={0} visible={show2} onRequestClose={() => setShow2(false)} images = {selectedImageView2} />
+                            {(selectedImageView2) ? (
+                                <ImageView imageIndex={0} visible={show2} onRequestClose={() => setShow2(false)} images = {[{uri: selectedImageView2}]} />
                             ):null}
-                        </TouchableOpacity> */}
-                        {/* <TouchableOpacity
+                        </TouchableOpacity>
+                        <TouchableOpacity
                             onPress={() => {
                                 setShow3(true)
-                                setSelectedImageView3(selectedImageView3)
+                                setSelectedImageView3(randomImage.image3)
                             }}
-                        > */}
+                        >
                             <Image source={{uri: randomImage.image3}} style = {{
                                 width: Dimensions.get("window").width * 0.30,
                                 height: Dimensions.get("window").width * 0.30,
                                 borderRadius: Dimensions.get("window").width * 0.01,
                             }}/>
-                            {/* {(selectedImageView3) ? (
-                                <ImageView imageIndex={0} visible={show3} onRequestClose={() => setShow3(false)} images = {selectedImageView3} />
+                            {(selectedImageView3) ? (
+                                <ImageView imageIndex={0} visible={show3} onRequestClose={() => setShow3(false)} images = {[{uri: selectedImageView3}]} />
                             ):null}
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
                     </View>
                     <View style = {styles.contentOwner} >
                         <View style = {{
@@ -634,15 +629,36 @@ const TempatDetail = () => {
                             </View>
                         </View>
 
-                            <TouchableOpacity style = {{
-                                backgroundColor: "#3EC70B",
-                                padding: Dimensions.get('window').width * 0.02,
-                                borderRadius: Dimensions.get('window').width * 0.05,
-                            }} 
-                                onPress={triggerCall}
-                            >
-                                <Ionicons name='call' size={Dimensions.get('window').width * 0.03} color="#fff" />
-                            </TouchableOpacity>                        
+                            <View style = {{
+                                flexDirection: 'row',
+                                alignItems: "center"
+                            }} >
+                                <TouchableOpacity style = {{
+                                    backgroundColor: "#3EC70B",
+                                    padding: Dimensions.get('window').width * 0.02,
+                                    borderRadius: Dimensions.get('window').width * 0.05,
+                                }} 
+                                    onPress={triggerCall}
+                                >
+                                    <Ionicons name='call' size={Dimensions.get('window').width * 0.05} color="#fff" />
+                                </TouchableOpacity>
+
+                                {/* icon chat */}
+                                <TouchableOpacity style = {{
+                                    backgroundColor: "#3EC70B",
+                                    padding: Dimensions.get('window').width * 0.02,
+                                    borderRadius: Dimensions.get('window').width * 0.05,
+                                    marginLeft: Dimensions.get('window').width * 0.02,
+                                }} 
+                                    onPress = {() => navigation.navigate("ROOMCHAT", {
+                                        user: DetilKontrakan.user,
+                                        iamge: DetilKontrakan.user.photoURL,
+                                        room: unfilteredRooms.find(room => room.participantsArray.includes(DetilKontrakan.user.email)),
+                                    })}
+                                >
+                                    <Ionicons name='chatbubble-ellipses' size={Dimensions.get('window').width * 0.05} color="#fff" />
+                                </TouchableOpacity>
+                            </View>
 
                     </View>
                     <View style = {styles.contentAddress} >

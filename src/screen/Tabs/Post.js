@@ -12,6 +12,7 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import notifee from '@notifee/react-native';
 import { Button } from 'react-native'
+import RadioList from '../../components/RadioList'
 
 const Post = () => {
 
@@ -38,6 +39,7 @@ const Post = () => {
   const [nameKontrakan, setNameKontrakan] = useState('')
   const [kota, setKota] = useState('')
   const [sediaKamar, setSediaKamar] = useState(null)
+  const [genre, setGenre] = useState('')
 
   
 
@@ -142,6 +144,7 @@ const Post = () => {
           addressKontrakan: address,
           nameKontrakan: nameKontrakan,
           kota: kota,
+          modelKost: genre,
           fasilitas: selectedFasilitas,
           idUsers: currentUser.uid,
           user: senderUser,
@@ -218,9 +221,6 @@ const Post = () => {
   const [selectedFasilitas, setSelectedFasilitas] = useState([]);
   console.log(selectedFasilitas, "WLWLWLL");
 
-
-  
-
   return (
     <View style = {styles.container} >
       <ScrollView>
@@ -271,7 +271,7 @@ const Post = () => {
             fontSize: 16,
             fontWeight: 'bold',
             color: "#000",
-          }} >Data Kontrakan</Text>
+          }} >Data Kost</Text>
           <View style = {styles.dataKontrakan} >
             <Pressable style = {styles.dataKontrakanContentImage} onPress={handleThumbnilePress} >
               {!selectedImageThumbnile ? (
@@ -281,7 +281,7 @@ const Post = () => {
               )}
             </Pressable>
             <View style = {{marginVertical: Dimensions.get('window').width * 0.02}} >
-              <Text style = {styles.bodyTitleOwner} >Nama Kontrakan</Text>
+              <Text style = {styles.bodyTitleOwner} >Nama Kost</Text>
               <TextInput 
                 style = {styles.inputKontrakan} 
                 placeholder = 'tulis nama kontrakan' 
@@ -333,6 +333,12 @@ const Post = () => {
                 IconRenderer={Icon}
               />
             </View>
+            <View style = {{marginVertical: Dimensions.get('window').width * 0.03}} >
+              <Text style = {styles.bodyTitleOwner} >Model Kost-an</Text>
+              <RadioList
+                onPick={setGenre}
+              />
+            </View>
             <View style = {{marginVertical: Dimensions.get('window').width * 0.02}} >
               <Text style = {styles.bodyTitleOwner} >Alamat Spesifik Lokasi</Text>
               <TextInput 
@@ -345,7 +351,7 @@ const Post = () => {
               />
             </View>
             <View style = {{marginVertical: Dimensions.get('window').width * 0.02}} >
-              <Text style = {styles.bodyTitleOwner} >Deksripsi Kontrakan</Text>
+              <Text style = {styles.bodyTitleOwner} >Deksripsi Kost</Text>
               <TextInput 
                 style = {styles.inputKontrakanDeskripsi} 
                 placeholder = 'tulis deskripsi kontrakan' 
@@ -385,39 +391,24 @@ const Post = () => {
             width: Dimensions.get('window').width * 0.8,
           }} >Bahwa anda telah mengisi data dengan benar dan siap dipertanggung jawabkan</Text>
         </View>
-        {uploading ? (
-                <Modal
-                transparent={true}
-                animationType={'none'}
-                // visible={post}
-                style={{ zIndex: 1100 }}
-                onRequestClose={() => { }}>
-                    <View style={{
-                    flex: 1,
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                    backgroundColor: '#rgba(0, 0, 0, 0.5)',
-                    zIndex: 1000
-                    }}>
-                        <View style={{
-                            backgroundColor: '#FFFFFF',
-                            height: 100,
-                            width: 100,
-                            borderRadius: 10,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-around'
-                        }}>
-                            {/* <Text>{transferred} % Berhasil</Text> */}
-                            <ActivityIndicator  color="black" size="large"  />
-                        </View>
-                    </View>
-                </Modal>
+        {uploading ? (                
+            <View style={{
+              flex: 1,
+              alignItems: 'center',        
+              justifyContent: 'center',
+              backgroundColor: '#fff',
+                    // zIndex: 1000
+            }}>
+              <Image source={require("../../assets/loading.gif")} style = {{
+                width: 50,
+                height: 50
+              }} />
+            </View>
+              
             ) : null}
         <TouchableOpacity 
           style = {styles.continue} 
-          disabled = {!checked || !nameKontrakan || !price || !kota || !sediaKamar || !address || !description || !selectedImage || !selectedImage2 || !selectedImage3 || !selectedImageAvatar || !name || !email || !phone}
+          disabled = {!checked || !nameKontrakan || !price || !kota || !sediaKamar || !address || !description || !selectedImage || !selectedImage2 || !selectedImage3 || !selectedImageAvatar || !name || !email || !phone || !genre}
           onPress={handlePost}
         >
           <Text  style = {styles.textContinue} >Kirim Data</Text>

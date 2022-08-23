@@ -27,8 +27,25 @@ const EditKontrakan = () => {
         });
     };
     const navigation = useNavigation()
+    const [loading, setLoading] = useState(false)
+    if (loading) {
+        return (
+            <View style={{
+                flex: 1,
+                alignItems: 'center',        
+                justifyContent: 'center',
+                backgroundColor: '#fff',              
+            }}>
+                <Image source={require("../../assets/loading.gif")} style = {{
+                    width: 50,
+                    height: 50
+                }} />
+            </View>
+        )
+    }
 
     const handlePressUpdate = () => {
+        setLoading(true);
         const data = {
             nameKontrakan: nameKontrakan,
             descriptionKontrakan: description,
@@ -42,6 +59,7 @@ const EditKontrakan = () => {
                 title: "Berhasil",
                 message: "Data berhasil diubah",
             })
+            setLoading(false);
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'myApp' }],

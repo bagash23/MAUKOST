@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1041397196157",
-    "project_id": "maukost-63eed",
-    "storage_bucket": "maukost-63eed.appspot.com"
+    "project_number": "537211218040",
+    "project_id": "maukost-3e05a",
+    "storage_bucket": "maukost-3e05a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1041397196157:android:af60df3437a2a922fbd814",
+        "mobilesdk_app_id": "1:537211218040:android:d2a4f0d0bb3cc92253658d",
         "android_client_info": {
           "package_name": "com.free"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1041397196157-m81tl2v3rfv8jaid5nd4sejfgvk8dvge.apps.googleusercontent.com",
+          "client_id": "537211218040-dpcijmkip2anprg60ogu0m14gfqihaoj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA7DqYxxYttBzHNVw6aIneYrE4ce0LpidQ"
+          "current_key": "AIzaSyAY0UXJZuTBrpvFVK_PdOVhilSRVqk_0RQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1041397196157-m81tl2v3rfv8jaid5nd4sejfgvk8dvge.apps.googleusercontent.com",
+              "client_id": "537211218040-dpcijmkip2anprg60ogu0m14gfqihaoj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

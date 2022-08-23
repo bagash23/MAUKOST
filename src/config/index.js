@@ -4,12 +4,12 @@ import { getStorage } from 'firebase/storage'
 import { initializeFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCAE0jOBXjV-724o_LrA5HeW5B14at5rdQ",
-    authDomain: "maukost-63eed.firebaseapp.com",
-    projectId: "maukost-63eed",
-    storageBucket: "maukost-63eed.appspot.com",
-    messagingSenderId: "1041397196157",
-    appId: "1:1041397196157:web:39bec2f25760eb52fbd814"
+    apiKey: "AIzaSyD0CAjjjV30z7ZxfyrTwpNLJHL9IBwYEnE",
+    authDomain: "maukost-3e05a.firebaseapp.com",
+    projectId: "maukost-3e05a",
+    storageBucket: "maukost-3e05a.appspot.com",
+    messagingSenderId: "537211218040",
+    appId: "1:537211218040:web:6091829bac856f4053658d"
 };
 
 

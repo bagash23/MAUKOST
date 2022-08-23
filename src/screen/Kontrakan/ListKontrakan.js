@@ -82,7 +82,8 @@ export default ListKontrakan
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: "#fff"
     },
     content: {
         marginVertical: Dimensions.get('window').height * 0.02,        

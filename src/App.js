@@ -7,20 +7,13 @@ import { store } from './Redux/store'
 import { EventRegister } from 'react-native-event-listeners';
 import InternetConnectionAlert from "react-native-internet-connection-alert";
 import { NativeBaseProvider } from 'native-base'
+import ContextWrapper from './Context/ContextWrapper'
+import { LogBox } from 'react-native'
 
 const App = () => {
-
-  // const [darkApp, setDarkApp] = useState(false);
-  //   const appTheme = darkApp ? DarkTheme : DefaultTheme
-
-  //   useEffect(() => {
-  //       let eventListener = EventRegister.addEventListener('changeThemeEvenet', (data) => {
-  //           setDarkApp(data)
-  //       })
-  //       return () => {
-  //           EventRegister.removeEventListener(eventListener)
-  //       }
-  //   },[])
+  useEffect(() => {
+    LogBox.ignoreAllLogs(true)
+  },[]);
 
   return (
     <Provider store={store} >
@@ -33,7 +26,9 @@ const App = () => {
             title="Periksa Koneksi Internet Anda"
             message="Koneksi Internet Anda tidak stabil, mohon cek kembali"
           >
-            <Router/>
+            <ContextWrapper>
+              <Router/>
+            </ContextWrapper>
           </InternetConnectionAlert>
           <Toast position='top' />      
         </NativeBaseProvider>
