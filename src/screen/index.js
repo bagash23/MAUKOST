@@ -25,6 +25,10 @@ import PromoScreen from './Kontrakan/PromoScreen';
 import DetilPromo from './Kontrakan/DetilPromo';
 import Chat from './Tabs/Chat';
 import ScanBarcode from './Kontrakan/ScanBarcode';
+import onBoarding from './auth/onBoarding';
+import ResetPassword from './auth/ResetPassword';
+import FiturBaru from './About/FiturBaru';
+import SocialMedia from './Tabs/SocialMedia';
 
 export {
   GetStarted,
@@ -54,4 +58,8 @@ export {
   DetilPromo,
   Chat,
   ScanBarcode,
+  onBoarding,
+  ResetPassword,
+  FiturBaru,
+  SocialMedia,
 };

@@ -353,7 +353,7 @@ const Search = () => {
                         style={styles.textListLainnya}
                         adjustsFontSizeToFit
                         numberOfLines={1}>
-                        {item.nameKontrakan}
+                        {`${item.nameKontrakan.slice(0, 14)}...`}
                       </Text>
                       <View
                         style={{flexDirection: 'row', alignItems: 'center'}}>

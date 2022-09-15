@@ -48,7 +48,7 @@ const Awal = () => {
               textAlign: 'center',
               fontSize: (Dimensions.get('window').width * 2) / 30,
             }}>
-            Kost biasa samapai{'\n'}kost yang luar biasa
+            Kost biasa sampai{'\n'}kost yang luar biasa
           </Text>
           <Text
             style={{

@@ -8,15 +8,18 @@ import {
   Modal,
   ActivityIndicator,
   ScrollView,
+  Pressable,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Toast from 'react-native-toast-message';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {auth, db, signIn} from '../../config';
+import {auth, db, forgetPassword, signIn} from '../../config';
 import {TextInput} from 'react-native-paper';
 import {fonts} from '../../utils/Fonts';
 import {StatusBar} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {sendPasswordResetEmail} from 'firebase/auth';
 
 const Login = () => {
   const toastMessage = ({type, title, message}) => {
@@ -31,7 +34,7 @@ const Login = () => {
     password: '',
   });
   const navigation = useNavigation();
-
+  const [openFoget, setOpenForget] = useState(false);
   const [loading, setLoading] = useState(false);
   if (loading) {
     return (
@@ -50,18 +53,6 @@ const Login = () => {
             backgroundColor: '#fff',
             zIndex: 1000,
           }}>
-          {/* <View style={{
-                        backgroundColor: '#FFFFFF',
-                        height: 100,
-                        width: 100,
-                        borderRadius: 10,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-around'
-                    }}>
-                        <ActivityIndicator animating={loading} color="black" />
-                    </View> */}
-
           <Image
             source={require('../../assets/loading.gif')}
             style={{
@@ -103,6 +94,8 @@ const Login = () => {
     }
   };
 
+  // reset password
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
@@ -141,6 +134,21 @@ const Login = () => {
             secureTextEntry
             activeOutlineColor="#d32521"
           />
+          <TouchableOpacity
+            style={{
+              marginTop: (Dimensions.get('window').width * 1) / 80,
+              alignSelf: 'flex-end',
+            }}
+            onPress={() => navigation.navigate('ResetPassword')}>
+            <Text
+              style={{
+                fontFamily: fonts.primary[400],
+                fontSize: (Dimensions.get('window').width * 2) / 70,
+                color: '#8D8DAA',
+              }}>
+              Lupa Kata Sandi
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View>
@@ -189,7 +197,7 @@ const Login = () => {
 };
 
 export default Login;
-
+const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -204,7 +212,7 @@ const styles = StyleSheet.create({
   },
   bodyInput: {
     paddingVertical: Dimensions.get('window').height * 0.02,
-    marginVertical: Dimensions.get('window').height * 0.01,
+    // marginVertical: Dimensions.get('window').height * 0.01,
   },
   textInput: {
     fontSize: Dimensions.get('window').height * 0.02,
@@ -213,6 +221,7 @@ const styles = StyleSheet.create({
   },
   inputan: {
     paddingHorizontal: Dimensions.get('window').height * 0.02,
+    backgroundColor: '#fff',
     // backgroundColor: "transparent",
   },
   continue: {
@@ -235,5 +244,30 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.1,
     height: Dimensions.get('window').width * 0.1,
     marginRight: Dimensions.get('window').height * 0.02,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+    backgroundColor: '#fff',
+  },
+  modalView: {
+    width: Dimensions.get('window').width,
+    padding: (Dimensions.get('window').width * 2) / 20,
+    justifyContent: 'center',
+  },
+  buttonClose: {
+    backgroundColor: '#d32521',
+    padding: Dimensions.get('window').width * 0.03,
+    borderRadius: Dimensions.get('window').width * 0.01,
+    alignItems: 'center',
+    // marginHorizontal: Dimensions.get('window').height * 0.04,
+    marginBottom: Dimensions.get('window').height * 0.04,
+  },
+  iconForget: {
+    height: PAGE_HEIGHT * 0.4,
+    aspectRatio: 1,
+    width: (Dimensions.get('window').width * 5) / 10,
   },
 });

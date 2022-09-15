@@ -26,6 +26,10 @@ import {
   DetilPromo,
   Chat,
   ScanBarcode,
+  onBoarding,
+  ResetPassword,
+  FiturBaru,
+  SocialMedia,
 } from '../screen';
 import {
   LogBox,
@@ -106,6 +110,7 @@ const MyApp = () => {
       screenOptions={{
         tabBarActiveTintColor: '#d32521',
         headerShown: false,
+        tabBarShowLabel: false,
       }}>
       <Tab.Screen
         name="Home"
@@ -129,6 +134,17 @@ const MyApp = () => {
           tabBarLabel: 'Cari',
         }}
       />
+      {/* <Tab.Screen
+        name="Social"
+        component={SocialMedia}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Ionicons name="ios-grid" color={color} size={26} />
+          ),
+          headerShown: false,
+          tabBarLabel: 'Berbagi',
+        }}
+      /> */}
       <Tab.Screen
         name="Chat"
         component={Chat}
@@ -206,6 +222,11 @@ const Router = () => {
         component={Splash}
         options={{headerShown: false}}
       />
+      {/* <Stack.Screen
+        name="onBoarding"
+        component={onBoarding}
+        options={{headerShown: false}}
+      /> */}
       <Stack.Screen
         name="SIGNUP"
         component={SignUp}
@@ -314,6 +335,16 @@ const Router = () => {
       <Stack.Screen
         name="ScanBarcode"
         component={ScanBarcode}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="FiturBaru"
+        component={FiturBaru}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

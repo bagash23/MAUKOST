@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#f4f4f4',
     paddingHorizontal: Dimensions.get('window').height * 0.02,
+    backgroundColor: '#fff',
   },
   inputan2: {
     borderWidth: 1,
